@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PulkitJalan\\Requester\\": "src/Requester"
+            "PulkitJalan\\Requester\\": "src"
         }
     },
     "minimum-stability": "stable"
