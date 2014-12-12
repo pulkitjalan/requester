@@ -11,7 +11,7 @@ class Client
     protected $guzzleClient;
 
     /**
-     * Base url
+     * Url
      *
      * @var string
      */
@@ -59,13 +59,13 @@ class Client
     }
 
     /**
-     * Set the base url
+     * Set the url
      * will automatically append the protocol
      *
      * @param string $base     the base url, can be url or something from config
      * @param string $protocol custom protocol to add
      *
-     * @return \PulkitJalan\Requester
+     * @return \PulkitJalan\Requester\Client
      */
     public function url($url)
     {
@@ -79,7 +79,7 @@ class Client
      *
      * @param boolean $secure
      *
-     * @return \PulkitJalan\Requester
+     * @return \PulkitJalan\Requester\Client
      */
     public function secure($secure)
     {
@@ -93,7 +93,7 @@ class Client
      *
      * @param boolean|string $verify boolean or path to certificate
      *
-     * @return \PulkitJalan\Requester
+     * @return \PulkitJalan\Requester\Client
      */
     public function verify($verify)
     {
@@ -107,7 +107,7 @@ class Client
      *
      * @param array $headers
      *
-     * @return \PulkitJalan\Requester
+     * @return \PulkitJalan\Requester\Client
      */
     public function headers(array $headers)
     {
@@ -121,7 +121,7 @@ class Client
      *
      * @param int $retry times to retry
      *
-     * @return \PulkitJalan\Requester
+     * @return \PulkitJalan\Requester\Client
      */
     public function retry($retry)
     {
@@ -135,7 +135,7 @@ class Client
      *
      * @param int $retryDelay delay between retrying
      *
-     * @return \PulkitJalan\Requester
+     * @return \PulkitJalan\Requester\Client
      */
     public function every($retryDelay)
     {
@@ -149,7 +149,7 @@ class Client
      *
      * @param array $retryOn errors to retry on
      *
-     * @return \PulkitJalan\Requester
+     * @return \PulkitJalan\Requester\Client
      */
     public function on(array $retryOn)
     {
@@ -262,18 +262,18 @@ class Client
      * Send the request using guzzle
      *
      * @param string $function function to call on guzzle
-     * @param array  $data     data to pass
+     * @param array  $options  options to pass
      *
      * @return guzzle response
      */
-    protected function send($function, array $data = [])
+    protected function send($function, array $options = [])
     {
         if ($this->retry) {
             $this->addRetrySubscriber();
         }
 
         // merge options
-        $options = array_merge($this->options, $data);
+        $options = array_merge($this->options, $options);
 
         return $this->guzzleClient->$function($this->getUrl(), $options);
     }

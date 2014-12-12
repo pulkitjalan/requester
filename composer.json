@@ -2,7 +2,7 @@
     "name": "pulkitjalan/requester",
     "description": "Requester class to wrap guzzle and retry subscriber",
     "homepage": "https://github.com/pulkitjalan/requester",
-    "keywords": ["guzzle"],
+    "keywords": ["guzzle", "retry", "http", "curl"],
     "license": "MIT",
     "authors": [
         {

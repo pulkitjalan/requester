@@ -33,3 +33,12 @@ Disabling ssl check
 // ssl check disabled
 $requester->url('github.com')->veify(false)->get();
 ```
+
+Use http instead of https
+```php
+// disable https and use http
+$requester->url('github.com')->secure(false)->get();
+
+// use http
+$requester->url('http://github.com')->get();
+```
