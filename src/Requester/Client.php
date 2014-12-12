@@ -36,7 +36,7 @@ class Client
      *
      * @var array
      */
-    protected $retryOn = [500, 503];
+    protected $retryOn = [500, 502, 503, 504];
 
     /**
      * Delay between requests
@@ -53,6 +53,9 @@ class Client
      */
     protected $retry = 5;
 
+    /**
+     * @param \GuzzleHttp\Client  $guzzleClient
+     */
     public function __construct(GuzzleClient $guzzleClient)
     {
         $this->guzzleClient = $guzzleClient;
@@ -147,8 +150,7 @@ class Client
     /**
      * types of errors to retry on
      *
-     * @param array $retryOn errors to retry on
-     *
+     * @param  array  $retryOn errors to retry on
      * @return \PulkitJalan\Requester\Client
      */
     public function on(array $retryOn)
@@ -161,8 +163,7 @@ class Client
     /**
      * Send get request
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return guzzle response
      */
     public function get(array $options = [])
@@ -173,8 +174,7 @@ class Client
     /**
      * Send head request
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return guzzle response
      */
     public function head(array $options = [])
@@ -185,8 +185,7 @@ class Client
     /**
      * Send delete request
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return guzzle response
      */
     public function delete(array $options = [])
@@ -197,8 +196,7 @@ class Client
     /**
      * Send put request
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return guzzle response
      */
     public function put(array $options = [])
@@ -209,8 +207,7 @@ class Client
     /**
      * Send patch request
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return guzzle response
      */
     public function patch(array $options = [])
@@ -221,8 +218,7 @@ class Client
     /**
      * Send post request
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return guzzle response
      */
     public function post(array $options = [])
@@ -233,8 +229,7 @@ class Client
     /**
      * Send options request
      *
-     * @param array $options
-     *
+     * @param array  $options
      * @return guzzle response
      */
     public function options(array $options = [])
@@ -245,7 +240,7 @@ class Client
     /**
      * Getter for the url will append protocol if one does not exist
      *
-     * @return string url
+     * @return string
      */
     public function getUrl()
     {
@@ -261,8 +256,8 @@ class Client
     /**
      * Send the request using guzzle
      *
-     * @param string $function function to call on guzzle
-     * @param array  $options  options to pass
+     * @param string  $function function to call on guzzle
+     * @param array   $options  options to pass
      *
      * @return guzzle response
      */
@@ -299,7 +294,7 @@ class Client
     /**
      * Get the protocol
      *
-     * @return string protocol
+     * @return string
      */
     protected function getProtocol()
     {
