@@ -1,0 +1,23 @@
+{
+    "name": "pulkitjalan/requester",
+    "description": "Requester class to wrap guzzle and retry subscriber",
+    "homepage": "https://github.com/pulkitjalan/requester",
+    "keywords": ["guzzle"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pulkit Jalan"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": "5.0.*",
+        "guzzlehttp/retry-subscriber": "2.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PulkitJalan\\Requester\\": "src/Requester"
+        }
+    },
+    "minimum-stability": "stable"
+}
