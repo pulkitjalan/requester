@@ -92,7 +92,7 @@ class Client
     }
 
     /**
-     * verify ssl or not
+     * Verify ssl or not
      *
      * @param boolean|string $verify boolean or path to certificate
      *
@@ -120,7 +120,7 @@ class Client
     }
 
     /**
-     * times to retry
+     * Number if times to retry
      *
      * @param int $retry times to retry
      *
@@ -134,7 +134,7 @@ class Client
     }
 
     /**
-     * delay between retrying
+     * Delay between retrying
      *
      * @param int $retryDelay delay between retrying
      *
@@ -148,7 +148,7 @@ class Client
     }
 
     /**
-     * types of errors to retry on
+     * Types of errors to retry on
      *
      * @param  array  $retryOn errors to retry on
      * @return \PulkitJalan\Requester\Client
