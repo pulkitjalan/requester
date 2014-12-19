@@ -338,7 +338,7 @@ class Client
      */
     protected function getProtocol()
     {
-        return 'http' .= ($this->secure ? 's' : '') . '://';
+        return 'http' . ($this->secure ? 's' : '') . '://';
     }
 
     /**
