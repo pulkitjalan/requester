@@ -88,6 +88,31 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('resource', $this->readAttribute($this->requester, 'options')['body']['image']);
     }
 
+    public function test_changing_retry_options()
+    {
+        $this->requester->retry(10);
+
+        $this->assertEquals(10, $this->readAttribute($this->requester, 'retry'));
+
+        $this->requester->every(100);
+
+        $this->assertEquals(100, $this->readAttribute($this->requester, 'retryDelay'));
+
+        $this->requester->on([500]);
+
+        $this->assertEquals([500], $this->readAttribute($this->requester, 'retryOn'));
+
+        $this->requester->retry(false);
+
+        $this->assertEquals(false, $this->readAttribute($this->requester, 'retry'));
+
+        $this->guzzle->shouldReceive('get')->once()->with('http://example.com', [
+            'verify' => false,
+        ]);
+
+        $this->requester->url('example.com')->secure(false)->verify(false)->get();
+    }
+
     public function test_sending_get_request()
     {
         $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
