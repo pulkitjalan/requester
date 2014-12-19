@@ -67,7 +67,7 @@ class Client
         $this->guzzleClient = $guzzleClient;
         $this->config = $config;
 
-        $this->initilize();
+        $this->initialize();
     }
 
     /**
@@ -304,7 +304,7 @@ class Client
         $options = array_merge_recursive($this->options, $options);
 
         // need to reset after every request
-        $this->initilize();
+        $this->initialize();
 
         return $guzzle->$function($url, $options);
     }
@@ -351,7 +351,7 @@ class Client
      *
      * @return void
      */
-    protected function initilize()
+    protected function initialize()
     {
         $this->url = '';
         $this->options = [];
