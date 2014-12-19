@@ -3,6 +3,7 @@
 namespace PulkitJalan\Requester;
 
 use Illuminate\Support\ServiceProvider;
+use GuzzleHttp\Client as GuzzleClient;
 
 class RequesterServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,9 @@ class RequesterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app[Requester::class] = function ($app) {
+            return $app['requester'];
+        };
     }
 
     /**
@@ -28,7 +31,11 @@ class RequesterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->config->package('pulkitjalan/requester', realpath(__DIR__.'/config'), 'requester');
+
+        $this->app['requester'] = $this->app->share(function ($app) {
+            return new Requester(new GuzzleClient(), $config = $app->config->get('requester::config'));
+        });
     }
 
     /**
@@ -38,6 +45,6 @@ class RequesterServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [];
+        return ['requester', Requester::class];
     }
 }

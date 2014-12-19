@@ -13,6 +13,6 @@ class Requester extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return '';
+        return 'requester';
     }
 }
