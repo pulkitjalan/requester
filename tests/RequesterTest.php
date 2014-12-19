@@ -5,13 +5,13 @@ namespace PulkitJalan\Requester\Tests;
 use PHPUnit_Framework_TestCase;
 use Mockery;
 use PulkitJalan\Requester\Requester;
-use GuzzleHttp\Client as GuzzleClient;
 
 class RequesterTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->requester = new Requester(new GuzzleClient(), []);
+        $this->guzzle = Mockery::mock('GuzzleHttp\Client')->makePartial();
+        $this->requester = new Requester($this->guzzle, []);
     }
 
     public function tearDown()
@@ -38,7 +38,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PulkitJalan\Requester\Exceptions\InvalidUrlException');
 
-        $this->requester->get();
+        $this->requester->getUrl();
     }
 
     public function test_guzzle_getter()
@@ -86,5 +86,96 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->addFile(__FILE__, 'image');
 
         $this->assertInternalType('resource', $this->readAttribute($this->requester, 'options')['body']['image']);
+    }
+
+    public function test_sending_get_request()
+    {
+        $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
+            'verify' => true,
+        ]);
+
+        $this->requester->url('example.com')->get();
+    }
+
+    public function test_sending_head_request()
+    {
+        $this->guzzle->shouldReceive('head')->once()->with('https://example.com', [
+            'verify' => true,
+        ]);
+
+        $this->requester->url('example.com')->head();
+    }
+
+    public function test_sending_options_request()
+    {
+        $this->guzzle->shouldReceive('options')->once()->with('https://example.com', [
+            'verify' => true,
+        ]);
+
+        $this->requester->url('example.com')->options();
+    }
+
+    public function test_sending_post_request()
+    {
+        $this->guzzle->shouldReceive('post')->once()->with('https://example.com', [
+            'verify' => true,
+            'body'    => [
+                'title' => 'some title',
+            ],
+        ]);
+
+        $this->requester->url('example.com')->post([
+            'body' => [
+                'title' => 'some title',
+            ],
+        ]);
+    }
+
+    public function test_sending_put_request()
+    {
+        $this->guzzle->shouldReceive('put')->once()->with('https://example.com', [
+            'verify' => true,
+            'body'    => [
+                'title' => 'some title',
+            ],
+        ]);
+
+        $this->requester->url('example.com')->put([
+            'body' => [
+                'title' => 'some title',
+            ],
+        ]);
+    }
+
+    public function test_sending_patch_request()
+    {
+        $this->guzzle->shouldReceive('patch')->once()->with('https://example.com', [
+            'verify' => true,
+            'body'    => [
+                'title' => 'some title',
+            ],
+        ]);
+
+        $this->requester->url('example.com')->patch([
+            'body' => [
+                'title' => 'some title',
+            ],
+        ]);
+    }
+
+    public function test_sending_delete_request()
+    {
+        $this->guzzle->shouldReceive('delete')->once()->with('https://example.com', [
+            'verify' => true,
+            'body'    => [
+                'id' => 1,
+            ],
+        ]);
+
+        $this->requester->url('example.com')->delete([
+            'body' => [
+                'id' => 1,
+            ],
+        ]);
     }
 }
