@@ -4,6 +4,7 @@ namespace PulkitJalan\Requester;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
+use PulkitJalan\Requester\Exceptions\InvalidUrlException;
 
 class Requester
 {
@@ -22,7 +23,7 @@ class Requester
      *
      * @var string
      */
-    protected $url = '';
+    protected $url = null;
 
     /**
      * Options for request
@@ -276,6 +277,10 @@ class Requester
      */
     public function getUrl()
     {
+        if (!$this->url) {
+            throw new InvalidUrlException();
+        }
+
         $url = $this->url;
 
         if (! parse_url($this->url, PHP_URL_SCHEME)) {
