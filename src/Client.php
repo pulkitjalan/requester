@@ -276,7 +276,7 @@ class Client
     {
         $url = $this->url;
 
-        if (!parse_url($this->url, PHP_URL_SCHEME)) {
+        if (! parse_url($this->url, PHP_URL_SCHEME)) {
             $url = $this->getProtocol() . $url;
         }
 
@@ -311,6 +311,8 @@ class Client
 
     /**
      * Add the retry subscriber to the guzzle client
+     *
+     * @param \GuzzleHttp\Client  $guzzle
      */
     protected function addRetrySubscriber(GuzzleClient $guzzle)
     {
@@ -336,13 +338,7 @@ class Client
      */
     protected function getProtocol()
     {
-        $protocol = 'http';
-
-        if ($this->secure) {
-            $protocol .= 's';
-        }
-
-        return $protocol . '://';
+        return 'http' .= ($this->secure ? 's' : '') . '://';
     }
 
     /**
