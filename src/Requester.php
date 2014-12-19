@@ -87,8 +87,6 @@ class Requester
      * Set the url
      * will automatically append the protocol
      *
-     * @param  string                           $base     the base url, can be url or something from config
-     * @param  string                           $protocol custom protocol to add
      * @return \PulkitJalan\Requester\Requester
      */
     public function url($url)
