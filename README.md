@@ -45,3 +45,21 @@ $requester->url('github.com')->secure(false)->get();
 // use http
 $requester->url('http://github.com')->get();
 ```
+
+Create a Post request
+```php
+// Create a post request
+$requester->url('example.com/update/1')->post([
+    'body' => [
+        'title' => 'some title'
+    ]
+]);
+
+// Upload a file
+$requester->url('example.com/upload')->addFile('/tmp/image.jpg')->post([
+    'body' => [
+        'title' => 'Some image',
+        'description' => 'Some image description'
+    ]
+]);
+```
