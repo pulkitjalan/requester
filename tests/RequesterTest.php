@@ -1,18 +1,20 @@
-<?php namespace PulkitJalan\Requester\Tests;
+<?php
+
+namespace PulkitJalan\Requester\Tests;
 
 use PHPUnit_Framework_TestCase;
-use Mockery as m;
+use Mockery;
 
-class ClientTest extends PHPUnit_Framework_TestCase
+class RequesterTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        m::close();
+        Mockery::close();
     }
 
     public function test_url_getter()
     {
-        $client = m::mock('PulkitJalan\Requester\Client')->makePartial();
+        $client = Mockery::mock('PulkitJalan\Requester\Requester')->makePartial();
 
         $client->url('github.com');
 

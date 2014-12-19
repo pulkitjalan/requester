@@ -1,22 +1,40 @@
 Requester
 =========
 
-[![Build Status](https://travis-ci.org/pulkitjalan/requester.svg)](https://travis-ci.org/pulkitjalan/requester)
-[![Coverage Status](https://coveralls.io/repos/pulkitjalan/requester/badge.png)](https://coveralls.io/r/pulkitjalan/requester)
+> Simple Requester class to wrap guzzle and the retry subscriber
 
-Simple Requester class to wrap guzzle and the retry subscriber
+[![Build Status](http://img.shields.io/travis/pulkitjalan/requester.svg?style=flat-square)](https://travis-ci.org/pulkitjalan/requester)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/pulkitjalan/requester/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/pulkitjalan/requester/)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/pulkitjalan/requester/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/pulkitjalan/requester/code-structure/master)
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://www.opensource.org/licenses/MIT)
+[![Latest Version](http://img.shields.io/packagist/v/pulkitjalan/requester.svg?style=flat-square)](https://packagist.org/packages/pulkitjalan/requester)
+[![Total Downloads](https://img.shields.io/packagist/dt/pulkitjalan/requester.svg?style=flat-square)](https://packagist.org/packages/pulkitjalan/requester)
 
-# Usage
+This package requires PHP >=5.4
+
+## Installation
+
+Install via composer - edit your `composer.json` to require the package.
+
+```js
+"require": {
+    "pulkitjalan/requester": "dev-master"
+}
+```
+
+Then run `composer update` in your terminal to pull it in.
+
+## Usage
 
 The requester class has a dependency of `guzzle` and takes in an instance of `guzzle` as the first param.
 
 ```php
 <?php
 
-use PulkitJalan\Requester\Client;
+use PulkitJalan\Requester\Requester;
 use GuzzleHttp\Client as GuzzleClient;
 
-$requester = new Client(new GuzzleClient());
+$requester = new Requester(new GuzzleClient());
 
 // simple get request
 $requester->url('github.com')->get();

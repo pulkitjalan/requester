@@ -1,9 +1,11 @@
-<?php namespace PulkitJalan\Requester;
+<?php
+
+namespace PulkitJalan\Requester;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
 
-class Client
+class Requester
 {
     /**
      * @var \GuzzleHttp\Client
@@ -86,7 +88,7 @@ class Client
      *
      * @param  string                        $base     the base url, can be url or something from config
      * @param  string                        $protocol custom protocol to add
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function url($url)
     {
@@ -99,7 +101,7 @@ class Client
      * Use secure endpoint or not
      *
      * @param  boolean                       $secure
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function secure($secure)
     {
@@ -112,7 +114,7 @@ class Client
      * Verify ssl or not
      *
      * @param  boolean|string                $verify boolean or path to certificate
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function verify($verify)
     {
@@ -125,7 +127,7 @@ class Client
      * Set headers for the request
      *
      * @param  array                         $headers
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function headers(array $headers)
     {
@@ -138,7 +140,7 @@ class Client
      * Number if times to retry
      *
      * @param  int                           $retry times to retry
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function retry($retry)
     {
@@ -151,7 +153,7 @@ class Client
      * Delay between retrying
      *
      * @param  int                           $retryDelay delay between retrying
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function every($retryDelay)
     {
@@ -164,7 +166,7 @@ class Client
      * Types of errors to retry on
      *
      * @param  array                         $retryOn errors to retry on
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function on(array $retryOn)
     {
@@ -178,7 +180,7 @@ class Client
      *
      * @param  string                        $filepath path to file
      * @param  string                        $key      optional post key, default to file
-     * @return \PulkitJalan\Requester\Client
+     * @return \PulkitJalan\Requester\Requester
      */
     public function addFile($filepath, $key = 'file')
     {
