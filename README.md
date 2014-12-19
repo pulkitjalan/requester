@@ -1,6 +1,9 @@
 Requester
 =========
 
+[![Build Status](https://travis-ci.org/pulkitjalan/requester.svg)](https://travis-ci.org/pulkitjalan/requester)
+[![Coverage Status](https://coveralls.io/repos/pulkitjalan/requester/badge.png)](https://coveralls.io/r/pulkitjalan/requester)
+
 Simple Requester class to wrap guzzle and the retry subscriber
 
 # Usage
