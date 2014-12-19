@@ -86,8 +86,8 @@ class Requester
      * Set the url
      * will automatically append the protocol
      *
-     * @param  string                        $base     the base url, can be url or something from config
-     * @param  string                        $protocol custom protocol to add
+     * @param  string                           $base     the base url, can be url or something from config
+     * @param  string                           $protocol custom protocol to add
      * @return \PulkitJalan\Requester\Requester
      */
     public function url($url)
@@ -100,7 +100,7 @@ class Requester
     /**
      * Use secure endpoint or not
      *
-     * @param  boolean                       $secure
+     * @param  boolean                          $secure
      * @return \PulkitJalan\Requester\Requester
      */
     public function secure($secure)
@@ -113,7 +113,7 @@ class Requester
     /**
      * Verify ssl or not
      *
-     * @param  boolean|string                $verify boolean or path to certificate
+     * @param  boolean|string                   $verify boolean or path to certificate
      * @return \PulkitJalan\Requester\Requester
      */
     public function verify($verify)
@@ -126,7 +126,7 @@ class Requester
     /**
      * Set headers for the request
      *
-     * @param  array                         $headers
+     * @param  array                            $headers
      * @return \PulkitJalan\Requester\Requester
      */
     public function headers(array $headers)
@@ -139,7 +139,7 @@ class Requester
     /**
      * Number if times to retry
      *
-     * @param  int                           $retry times to retry
+     * @param  int                              $retry times to retry
      * @return \PulkitJalan\Requester\Requester
      */
     public function retry($retry)
@@ -152,7 +152,7 @@ class Requester
     /**
      * Delay between retrying
      *
-     * @param  int                           $retryDelay delay between retrying
+     * @param  int                              $retryDelay delay between retrying
      * @return \PulkitJalan\Requester\Requester
      */
     public function every($retryDelay)
@@ -165,7 +165,7 @@ class Requester
     /**
      * Types of errors to retry on
      *
-     * @param  array                         $retryOn errors to retry on
+     * @param  array                            $retryOn errors to retry on
      * @return \PulkitJalan\Requester\Requester
      */
     public function on(array $retryOn)
@@ -178,15 +178,15 @@ class Requester
     /**
      * Add a file to the request
      *
-     * @param  string                        $filepath path to file
-     * @param  string                        $key      optional post key, default to file
+     * @param  string                           $filepath path to file
+     * @param  string                           $key      optional post key, default to file
      * @return \PulkitJalan\Requester\Requester
      */
     public function addFile($filepath, $key = 'file')
     {
         $this->options = array_merge_recursive($this->options, [
             'body' => [
-                $key => fopen($filepath, 'r')
+                $key => fopen($filepath, 'r'),
             ]
         ]);
 
@@ -279,7 +279,7 @@ class Requester
         $url = $this->url;
 
         if (! parse_url($this->url, PHP_URL_SCHEME)) {
-            $url = $this->getProtocol() . $url;
+            $url = $this->getProtocol().$url;
         }
 
         return $url;
@@ -314,7 +314,7 @@ class Requester
     /**
      * Add the retry subscriber to the guzzle client
      *
-     * @param \GuzzleHttp\Client  $guzzle
+     * @param \GuzzleHttp\Client $guzzle
      */
     protected function addRetrySubscriber(GuzzleClient $guzzle)
     {
@@ -324,7 +324,7 @@ class Requester
             'delay' => function ($number, $event) {
                 return $this->retryDelay;
             },
-            'max' => $this->retry
+            'max' => $this->retry,
         ]);
 
         // add the retry emitter
@@ -340,7 +340,7 @@ class Requester
      */
     protected function getProtocol()
     {
-        return 'http' . ($this->secure ? 's' : '') . '://';
+        return 'http'.($this->secure ? 's' : '').'://';
     }
 
     /**

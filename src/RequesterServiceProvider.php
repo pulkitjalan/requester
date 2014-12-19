@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class RequesterServiceProvider extends ServiceProvider
 {
-	/**
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
