@@ -328,6 +328,8 @@ class Requester
      */
     protected function send($function, array $options = [])
     {
+        $guzzle = $this->getGuzzleClient();
+
         $url = $this->getUrl();
 
         // merge options
@@ -336,7 +338,7 @@ class Requester
         // need to reset after every request
         $this->initialize();
 
-        return $this->getGuzzleClient()->$function($url, $options);
+        return $guzzle->$function($url, $options);
     }
 
     /**
