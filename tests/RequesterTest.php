@@ -21,17 +21,17 @@ class RequesterTest extends PHPUnit_Framework_TestCase
 
     public function test_url_getter()
     {
-        $this->requester->url('github.com');
+        $this->requester->url('example.com');
 
-        $this->assertEquals('https://github.com', $this->requester->getUrl());
+        $this->assertEquals('https://example.com', $this->requester->getUrl());
 
         $this->requester->secure(false);
 
-        $this->assertEquals('http://github.com', $this->requester->getUrl());
+        $this->assertEquals('http://example.com', $this->requester->getUrl());
 
-        $this->requester->url('git://github.com');
+        $this->requester->url('git://example.com');
 
-        $this->assertEquals('git://github.com', $this->requester->getUrl());
+        $this->assertEquals('git://example.com', $this->requester->getUrl());
     }
 
     public function test_invalid_url_exception()
@@ -51,6 +51,12 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->verify(false);
 
         $this->assertEquals(['verify' => false], $this->readAttribute($this->requester, 'options'));
+
+        $this->guzzle->shouldReceive('get')->once()->with('http://example.com', [
+            'verify' => false,
+        ]);
+
+        $this->requester->url('example.com')->secure(false)->verify(false)->get();
     }
 
     public function test_setting_and_adding_headers()
@@ -105,12 +111,6 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->retry(false);
 
         $this->assertEquals(false, $this->readAttribute($this->requester, 'retry'));
-
-        $this->guzzle->shouldReceive('get')->once()->with('http://example.com', [
-            'verify' => false,
-        ]);
-
-        $this->requester->url('example.com')->secure(false)->verify(false)->get();
     }
 
     public function test_sending_get_request()
