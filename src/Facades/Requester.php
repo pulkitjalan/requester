@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Facades;
+namespace PulkitJalan\Requester\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
