@@ -24,9 +24,29 @@ Install via composer - edit your `composer.json` to require the package.
 
 Then run `composer update` in your terminal to pull it in.
 
+# Laravel
+
+There is a Laravel service provider and facade available.
+
+Add the following to the `providers` array in your `config/app.php`
+
+```php
+'PulkitJalan\Requester\RequesterServiceProvider'
+```
+
+Next add the following to the `aliases` array in your `config/app.php`
+
+```php
+'Requester' => 'PulkitJalan\Requester\Facades\Requester'
+```
+
+Next run `php artisan config:publish pulkitjalan/requester` to publish the config file.
+
 ## Usage
 
 The requester class has a dependency of `guzzle` and takes in an instance of `guzzle` as the first param.
+
+Available request methods: `get`, `head`, `delete`, `put`, `patch`, `post`, `options`
 
 ```php
 <?php
@@ -62,6 +82,14 @@ $requester->url('github.com')->secure(false)->get();
 
 // use http
 $requester->url('http://github.com')->get();
+```
+
+Caching
+```php
+$response = $requester->url('github.com')->cache(true)->get();
+
+// Same request should return 304 response
+$response = $requester->url('github.com')->cache(true)->get();
 ```
 
 Create a Post request
