@@ -27,6 +27,10 @@ return [
     |--------------------------------------------------------------------------
     | Retry options
     |--------------------------------------------------------------------------
+    |
+    | Uses the guzzle retry subscriber
+    | https://github.com/guzzle/retry-subscriber
+    |
     */
     'retry' => [
         /*
@@ -58,6 +62,17 @@ return [
         |
         */
         'on' => [500, 502, 503, 504],
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enable or disable request caching
+    |--------------------------------------------------------------------------
+    |
+    | Uses the guzzle cache subscriber
+    | https://github.com/guzzle/cache-subscriber
+    |
+    */
+    'cache' => false
 
 ];

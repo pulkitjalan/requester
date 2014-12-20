@@ -56,7 +56,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
             'verify' => false,
         ]);
 
-        $this->requester->url('example.com')->secure(false)->verify(false)->get();
+        $this->requester->url('example.com')->secure(false)->verify(false)->cache(true)->get();
     }
 
     public function test_setting_and_adding_headers()
@@ -111,6 +111,17 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->retry(false);
 
         $this->assertEquals(false, $this->readAttribute($this->requester, 'retry'));
+    }
+
+    public function test_changing_cache_options()
+    {
+        $this->requester->cache(false);
+
+        $this->assertEquals(false, $this->readAttribute($this->requester, 'cache'));
+
+        $this->requester->cache(true);
+
+        $this->assertEquals(true, $this->readAttribute($this->requester, 'cache'));
     }
 
     public function test_sending_get_request()

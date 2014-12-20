@@ -11,8 +11,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "guzzlehttp/guzzle": "5.0.*",
-        "guzzlehttp/retry-subscriber": "2.0.*",
+        "guzzlehttp/guzzle": "5.*",
+        "guzzlehttp/retry-subscriber": "2.*",
+        "guzzlehttp/cache-subscriber": "0.*",
         "illuminate/support": "~4|~5"
     },
     "require-dev": {
