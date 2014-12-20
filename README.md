@@ -24,7 +24,7 @@ Install via composer - edit your `composer.json` to require the package.
 
 Then run `composer update` in your terminal to pull it in.
 
-# Laravel
+### Laravel
 
 There is a Laravel service provider and facade available.
 
