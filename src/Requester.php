@@ -4,7 +4,6 @@ namespace PulkitJalan\Requester;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
-use GuzzleHttp\Subscriber\Cache\CacheSubscriber;
 use PulkitJalan\Requester\Exceptions\InvalidUrlException;
 
 class Requester
@@ -63,13 +62,6 @@ class Requester
     protected $retry = 5;
 
     /**
-     * Use cache subscriber
-     *
-     * @var boolean
-     */
-    protected $cache = false;
-
-    /**
      * @param \GuzzleHttp\Client $guzzleClient
      * @param array              $config
      */
@@ -92,10 +84,6 @@ class Requester
 
         if ($this->retry) {
             $guzzle = $this->addRetrySubscriber($guzzle);
-        }
-
-        if ($this->cache) {
-            $guzzle = $this->addCacheSubscriber($guzzle);
         }
 
         return $guzzle;
@@ -188,19 +176,6 @@ class Requester
     public function on(array $retryOn)
     {
         $this->retryOn = $retryOn;
-
-        return $this;
-    }
-
-    /**
-     * Enable or disable the cache subscriber
-     *
-     * @param  boolean                          $cache
-     * @return \PulkitJalan\Requester\Requester
-     */
-    public function cache($cache)
-    {
-        $this->cache = $cache;
 
         return $this;
     }
@@ -365,19 +340,6 @@ class Requester
     }
 
     /**
-     * Add the cache subscriber to the guzzle client
-     *
-     * @param  \GuzzleHttp\Client $guzzle
-     * @return \GuzzleHttp\Client
-     */
-    protected function addCacheSubscriber(GuzzleClient $guzzle)
-    {
-        CacheSubscriber::attach($guzzle);
-
-        return $guzzle;
-    }
-
-    /**
      * Get the protocol
      *
      * @return string
@@ -401,7 +363,6 @@ class Requester
         $this->retryOn = array_get($this->config, 'retry.on', [500, 502, 503, 504]);
         $this->retryDelay = array_get($this->config, 'retry.delay', 10);
         $this->retry = array_get($this->config, 'retry.times', 5);
-        $this->cache = array_get($this->config, 'cache', false);
         $this->verify(array_get($this->config, 'verify', true));
     }
 }

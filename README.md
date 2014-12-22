@@ -57,39 +57,31 @@ use GuzzleHttp\Client as GuzzleClient;
 $requester = new Requester(new GuzzleClient());
 
 // simple get request
-$requester->url('github.com')->get();
+$requester->url('example.com')->get();
 ```
 
 Altering the default retry behaviour
 ```php
-// retry 10 times, with a 1 second wait on a 404 error
-$requester->url('github.com')->retry(10)->every(1000)->on([404])->get();
+// retry 10 times, with a 1 second wait on a 503 error
+$requester->url('example.com')->retry(10)->every(1000)->on([503])->get();
 
 // disabling retry
-$requester->url('github.com')->retry(false)->get();
+$requester->url('example.com')->retry(false)->get();
 ```
 
 Disabling ssl check
 ```php
 // ssl check disabled
-$requester->url('github.com')->veify(false)->get();
+$requester->url('example.com')->veify(false)->get();
 ```
 
 Use http instead of https
 ```php
 // disable https and use http
-$requester->url('github.com')->secure(false)->get();
+$requester->url('example.com')->secure(false)->get();
 
 // use http
-$requester->url('http://github.com')->get();
-```
-
-Caching
-```php
-$response = $requester->url('github.com')->cache(true)->get();
-
-// Same request should return 304 response
-$response = $requester->url('github.com')->cache(true)->get();
+$requester->url('http://example.com')->get();
 ```
 
 Create a Post request

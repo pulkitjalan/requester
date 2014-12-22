@@ -113,19 +113,6 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(false, $this->readAttribute($this->requester, 'retry'));
     }
 
-    public function test_changing_cache_options()
-    {
-        $this->requester->cache(true);
-
-        $this->assertEquals(true, $this->readAttribute($this->requester, 'cache'));
-
-        $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
-            'verify' => true,
-        ]);
-
-        $this->requester->url('example.com')->cache(true)->get();
-    }
-
     public function test_sending_get_request()
     {
         $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
