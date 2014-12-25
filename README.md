@@ -18,7 +18,7 @@ Install via composer - edit your `composer.json` to require the package.
 
 ```js
 "require": {
-    "pulkitjalan/requester": "dev-master"
+    "pulkitjalan/requester": "1.*"
 }
 ```
 
