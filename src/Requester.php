@@ -40,6 +40,20 @@ class Requester
     protected $secure = true;
 
     /**
+     * Verify ssl connection
+     *
+     * @var boolean|string
+     */
+    protected $verify = true;
+
+    /**
+     * Make request asynchronously
+     *
+     * @var boolean
+     */
+    protected $async = false;
+
+    /**
      * Retry request on which types of errors
      *
      * @var array
@@ -123,7 +137,20 @@ class Requester
      */
     public function verify($verify)
     {
-        $this->options = array_merge($this->options, ['verify' => $verify]);
+        $this->verify = $verify;
+
+        return $this;
+    }
+
+    /**
+     * Make request asynchronously
+     *
+     * @param  boolean                          $async
+     * @return \PulkitJalan\Requester\Requester
+     */
+    public function async($async)
+    {
+        $this->async = $async;
 
         return $this;
     }
@@ -277,6 +304,7 @@ class Requester
 
     /**
      * Getter for the url will append protocol if one does not exist
+     *
      * @return string
      */
     public function getUrl()
@@ -295,6 +323,24 @@ class Requester
     }
 
     /**
+     * Getter for options
+     *
+     * @return array
+     */
+    public function getOptions($options)
+    {
+        // Add verify to options
+        $options = array_merge(['verify' => $this->verify], $options);
+
+        if ($this->async) {
+            $options = array_merge(['future' => true], $options);
+        }
+
+        // merge and return
+        return array_merge_recursive($this->options, $options);
+    }
+
+    /**
      * Send the request using guzzle
      *
      * @param  string                                $function function to call on guzzle
@@ -308,7 +354,7 @@ class Requester
         $url = $this->getUrl();
 
         // merge options
-        $options = array_merge_recursive($this->options, $options);
+        $options = $this->getOptions($options);
 
         // need to reset after every request
         $this->initialize();
@@ -363,6 +409,7 @@ class Requester
         $this->retryOn = array_get($this->config, 'retry.on', [500, 502, 503, 504]);
         $this->retryDelay = array_get($this->config, 'retry.delay', 10);
         $this->retry = array_get($this->config, 'retry.times', 5);
-        $this->verify(array_get($this->config, 'verify', true));
+        $this->verify = array_get($this->config, 'verify', true);
+        $this->async = array_get($this->config, 'async', false);
     }
 }

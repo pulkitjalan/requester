@@ -101,3 +101,19 @@ $requester->url('example.com/upload')->addFile('/tmp/image.jpg')->post([
     ]
 ]);
 ```
+
+Guzzle 5 uses RingPHP and has the added functionality of performing request asynchronously.
+
+Performing asynchronous requests
+```php
+// Create a post request
+$response = $requester->url('example.com')->async(true)->get();
+
+// Use the response asynchronously
+$this->response = $response->then(function ($response) {
+    return $response->getBody();
+});
+
+// Use the response synchronously
+$this->response = $response->getBody();
+```
