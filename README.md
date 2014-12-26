@@ -136,4 +136,8 @@ $requester->addLogger($log);
 
 // request and response logged to file
 $requester->url('example.com')->get();
+
+// Use the second param to update the format
+$requester = new Requester(new GuzzleClient());
+$requester->addLogger($log, 'DEBUG');
 ```

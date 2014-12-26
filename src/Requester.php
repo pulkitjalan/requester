@@ -3,7 +3,6 @@
 namespace PulkitJalan\Requester;
 
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Subscriber\Log\Formatter;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
 use PulkitJalan\Requester\Exceptions\InvalidUrlException;
@@ -114,8 +113,8 @@ class Requester
      */
     public function addLogger($logger, $format = 'CLF')
     {
-        if (defined(Formatter::class.'::'.$format)) {
-            $format = constant(Formatter::class.'::'.$format);
+        if (defined('GuzzleHttp\Subscriber\Log\Formatter::'.$format)) {
+            $format = constant('GuzzleHttp\Subscriber\Log\Formatter::'.$format);
         }
 
         $subscriber = new LogSubscriber($logger, $format);
