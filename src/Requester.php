@@ -112,7 +112,7 @@ class Requester
      * @param  string $format Log output format
      * @return void
      */
-    public function addLogger($logger, $format)
+    public function addLogger($logger, $format = 'CLF')
     {
         if (defined(Formatter::class.'::'.$format)) {
             $format = constant(Formatter::class.'::'.$format);

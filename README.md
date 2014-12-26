@@ -46,6 +46,8 @@ Next run `php artisan config:publish pulkitjalan/requester` to publish the confi
 
 The requester class has a dependency of `guzzle` and takes in an instance of `guzzle` as the first param.
 
+This package also uses a few guzzle subscribers. `https://github.com/guzzle/retry-subscriber` for retry functionality and `https://github.com/guzzle/log-subscriber` for logging.
+
 Available request methods: `get`, `head`, `delete`, `put`, `patch`, `post`, `options`
 
 ```php
@@ -60,7 +62,7 @@ $requester = new Requester(new GuzzleClient());
 $requester->url('example.com')->get();
 ```
 
-Altering the default retry behaviour
+Altering the default retry behaviour. See [retry-subscriber](https://github.com/guzzle/retry-subscriber) for more info.
 ```php
 // retry 10 times, with a 1 second wait on a 503 error
 $requester->url('example.com')->retry(10)->every(1000)->on([503])->get();
@@ -116,4 +118,22 @@ $this->response = $response->then(function ($response) {
 
 // Use the response synchronously
 $this->response = $response->getBody();
+```
+
+Logging guzzle requests to file. See [log-subscriber](https://github.com/guzzle/log-subscriber) for more info.
+```php
+use PulkitJalan\Requester\Requester;
+use GuzzleHttp\Client as GuzzleClient;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+// create a log channel
+$log = new Logger('name');
+$log->pushHandler(new StreamHandler('/path/to/your.log', Logger::INFO));
+
+$requester = new Requester(new GuzzleClient());
+$requester->addLogger($log);
+
+// request and response logged to file
+$requester->url('example.com')->get();
 ```

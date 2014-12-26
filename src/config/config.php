@@ -108,7 +108,7 @@ return [
         |--------------------------------------------------------------------------
         |
         | The Log Subscriber currently supports [CLF, DEBUG, SHORT]
-        | See https://github.com/guzzle/log-subscriber/blob/master/src/Formatter.php
+        | See https://github.com/guzzle/log-subscriber for more info
         | Can also set a custom format
         |
         */
