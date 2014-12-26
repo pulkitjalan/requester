@@ -2,8 +2,10 @@
 
 namespace PulkitJalan\Requester;
 
-use Illuminate\Support\ServiceProvider;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use GuzzleHttp\Client as GuzzleClient;
+use Illuminate\Support\ServiceProvider;
 
 class RequesterServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,16 @@ class RequesterServiceProvider extends ServiceProvider
         $this->app[Requester::class] = function ($app) {
             return $app['requester'];
         };
+
+        if ($this->app->config->get('requester::log.enabled')) {
+            $logger = $this->app->log->getMonolog();
+
+            if (!empty($this->app->config->get('requester::log.file'))) {
+                $logger->pushHandler(new StreamHandler($this->app->config->get('requester::log.file'), Logger::INFO));
+            }
+
+            $this->app['requester']->addLogger($logger, $this->app->config->get('requester::log.format'));
+        }
     }
 
     /**

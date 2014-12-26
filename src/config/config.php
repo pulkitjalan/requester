@@ -72,6 +72,47 @@ return [
         |
         */
         'on' => [500, 502, 503, 504],
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging options
+    |--------------------------------------------------------------------------
+    |
+    | Log guzzle requests using the log-subscriber
+    | https://github.com/guzzle/log-subscriber
+    |
+    */
+    'log' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Enable logging
+        |--------------------------------------------------------------------------
+        */
+        'enabled' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Logging file
+        |--------------------------------------------------------------------------
+        |
+        | Logs to Laravels default (storage_path().'/logs/laravel.log')
+        | Modify to log to a different file
+        |
+        */
+        'file' => '',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Logging format
+        |--------------------------------------------------------------------------
+        |
+        | The Log Subscriber currently supports [CLF, DEBUG, SHORT]
+        | See https://github.com/guzzle/log-subscriber/blob/master/src/Formatter.php
+        | Can also set a custom format
+        |
+        */
+        'format' => 'CLF',
+    ],
 
 ];

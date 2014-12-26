@@ -3,6 +3,8 @@
 namespace PulkitJalan\Requester;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Subscriber\Log\Formatter;
+use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
 use PulkitJalan\Requester\Exceptions\InvalidUrlException;
 
@@ -101,6 +103,23 @@ class Requester
         }
 
         return $guzzle;
+    }
+
+    /**
+     * Add a logger to the guzzle client
+     *
+     * @param  Logger $logger PSR-3 Logger instance (monolog)
+     * @param  string $format Log output format
+     * @return void
+     */
+    public function addLogger($logger, $format)
+    {
+        if (defined(Formatter::class.'::'.$format)) {
+            $format = constant(Formatter::class.'::'.$format);
+        }
+
+        $subscriber = new LogSubscriber($logger, $format);
+        $this->guzzleClient->getEmitter()->attach($subscriber);
     }
 
     /**
