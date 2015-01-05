@@ -21,7 +21,7 @@ class RequesterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app[Requester::class] = function ($app) {
+        $this->app['PulkitJalan\Requester\Requester'] = function ($app) {
             return $app['requester'];
         };
 
@@ -57,6 +57,6 @@ class RequesterServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['requester', Requester::class];
+        return ['requester', 'PulkitJalan\Requester\Requester'];
     }
 }
