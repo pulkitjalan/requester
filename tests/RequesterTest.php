@@ -1,9 +1,9 @@
 <?php
 
-namespace PulkitJalan\Requester\Tests;
+namespace PulkitJalan\Requester\tests;
 
-use PHPUnit_Framework_TestCase;
 use Mockery;
+use PHPUnit_Framework_TestCase;
 
 class RequesterTest extends PHPUnit_Framework_TestCase
 {
@@ -58,7 +58,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
     {
         $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
             'verify' => true,
-            'future' => true
+            'future' => true,
         ]);
 
         $this->requester->url('example.com')->async(true)->get();
@@ -146,7 +146,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
     public function testSendingPostRequest()
     {
         $this->guzzle->shouldReceive('post')->once()->with('https://example.com', [
-            'verify' => true,
+            'verify'  => true,
             'body'    => [
                 'title' => 'some title',
             ],
@@ -162,7 +162,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
     public function testSendingPutRequest()
     {
         $this->guzzle->shouldReceive('put')->once()->with('https://example.com', [
-            'verify' => true,
+            'verify'  => true,
             'body'    => [
                 'title' => 'some title',
             ],
@@ -178,7 +178,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
     public function testSendingPatchRequest()
     {
         $this->guzzle->shouldReceive('patch')->once()->with('https://example.com', [
-            'verify' => true,
+            'verify'  => true,
             'body'    => [
                 'title' => 'some title',
             ],
@@ -194,7 +194,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
     public function testSendingDeleteRequest()
     {
         $this->guzzle->shouldReceive('delete')->once()->with('https://example.com', [
-            'verify' => true,
+            'verify'  => true,
             'body'    => [
                 'id' => 1,
             ],

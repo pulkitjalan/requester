@@ -2,10 +2,10 @@
 
 namespace PulkitJalan\Requester;
 
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\ServiceProvider;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class RequesterServiceProvider extends ServiceProvider
 {

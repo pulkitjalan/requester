@@ -20,42 +20,42 @@ class Requester
     protected $config = [];
 
     /**
-     * Url
+     * Url.
      *
      * @var string
      */
     protected $url = null;
 
     /**
-     * Options for request
+     * Options for request.
      *
      * @var array
      */
     protected $options = [];
 
     /**
-     * Send secure request or not
+     * Send secure request or not.
      *
      * @var boolean
      */
     protected $secure = true;
 
     /**
-     * Verify ssl connection
+     * Verify ssl connection.
      *
      * @var boolean|string
      */
     protected $verify = true;
 
     /**
-     * Make request asynchronously
+     * Make request asynchronously.
      *
      * @var boolean
      */
     protected $async = false;
 
     /**
-     * Retry request on which types of errors
+     * Retry request on which types of errors.
      *
      * @var array
      */
@@ -63,14 +63,14 @@ class Requester
 
     /**
      * Delay between requests
-     * In miliseconds
+     * In miliseconds.
      *
      * @var integer
      */
     protected $retryDelay = 10;
 
     /**
-     * Number of times to retry
+     * Number of times to retry.
      *
      * @var integer
      */
@@ -89,7 +89,7 @@ class Requester
     }
 
     /**
-     * Getter for guzzle client
+     * Getter for guzzle client.
      *
      * @return \GuzzleHttp\Client
      */
@@ -105,10 +105,11 @@ class Requester
     }
 
     /**
-     * Add a logger to the guzzle client
+     * Add a logger to the guzzle client.
      *
-     * @param  Logger $logger PSR-3 Logger instance (monolog)
-     * @param  string $format Log output format
+     * @param Logger $logger PSR-3 Logger instance (monolog)
+     * @param string $format Log output format
+     *
      * @return void
      */
     public function addLogger($logger, $format = 'CLF')
@@ -123,7 +124,7 @@ class Requester
 
     /**
      * Set the url
-     * will automatically append the protocol
+     * will automatically append the protocol.
      *
      * @return \PulkitJalan\Requester\Requester
      */
@@ -135,9 +136,10 @@ class Requester
     }
 
     /**
-     * Use secure endpoint or not
+     * Use secure endpoint or not.
      *
-     * @param  boolean                          $secure
+     * @param boolean $secure
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function secure($secure)
@@ -148,9 +150,10 @@ class Requester
     }
 
     /**
-     * Verify ssl or not
+     * Verify ssl or not.
      *
-     * @param  boolean|string                   $verify boolean or path to certificate
+     * @param boolean|string $verify boolean or path to certificate
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function verify($verify)
@@ -161,9 +164,10 @@ class Requester
     }
 
     /**
-     * Make request asynchronously
+     * Make request asynchronously.
      *
-     * @param  boolean                          $async
+     * @param boolean $async
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function async($async)
@@ -174,9 +178,10 @@ class Requester
     }
 
     /**
-     * Set headers for the request
+     * Set headers for the request.
      *
-     * @param  array                            $headers
+     * @param array $headers
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function headers(array $headers)
@@ -187,9 +192,10 @@ class Requester
     }
 
     /**
-     * Number if times to retry
+     * Number if times to retry.
      *
-     * @param  int                              $retry times to retry
+     * @param int $retry times to retry
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function retry($retry)
@@ -200,9 +206,10 @@ class Requester
     }
 
     /**
-     * Delay between retrying
+     * Delay between retrying.
      *
-     * @param  int                              $retryDelay delay between retrying
+     * @param int $retryDelay delay between retrying
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function every($retryDelay)
@@ -213,9 +220,10 @@ class Requester
     }
 
     /**
-     * Types of errors to retry on
+     * Types of errors to retry on.
      *
-     * @param  array                            $retryOn errors to retry on
+     * @param array $retryOn errors to retry on
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function on(array $retryOn)
@@ -226,10 +234,11 @@ class Requester
     }
 
     /**
-     * Add a file to the request
+     * Add a file to the request.
      *
-     * @param  string                           $filepath path to file
-     * @param  string                           $key      optional post key, default to file
+     * @param string $filepath path to file
+     * @param string $key      optional post key, default to file
+     *
      * @return \PulkitJalan\Requester\Requester
      */
     public function addFile($filepath, $key = 'file')
@@ -237,16 +246,17 @@ class Requester
         $this->options = array_merge_recursive($this->options, [
             'body' => [
                 $key => fopen($filepath, 'r'),
-            ]
+            ],
         ]);
 
         return $this;
     }
 
     /**
-     * Send get request
+     * Send get request.
      *
-     * @param  array                                 $options
+     * @param array $options
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function get(array $options = [])
@@ -255,9 +265,10 @@ class Requester
     }
 
     /**
-     * Send head request
+     * Send head request.
      *
-     * @param  array                                 $options
+     * @param array $options
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function head(array $options = [])
@@ -266,9 +277,10 @@ class Requester
     }
 
     /**
-     * Send delete request
+     * Send delete request.
      *
-     * @param  array                                 $options
+     * @param array $options
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function delete(array $options = [])
@@ -277,9 +289,10 @@ class Requester
     }
 
     /**
-     * Send put request
+     * Send put request.
      *
-     * @param  array                                 $options
+     * @param array $options
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function put(array $options = [])
@@ -288,9 +301,10 @@ class Requester
     }
 
     /**
-     * Send patch request
+     * Send patch request.
      *
-     * @param  array                                 $options
+     * @param array $options
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function patch(array $options = [])
@@ -299,9 +313,10 @@ class Requester
     }
 
     /**
-     * Send post request
+     * Send post request.
      *
-     * @param  array                                 $options
+     * @param array $options
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function post(array $options = [])
@@ -310,9 +325,10 @@ class Requester
     }
 
     /**
-     * Send options request
+     * Send options request.
      *
-     * @param  array                                 $options
+     * @param array $options
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function options(array $options = [])
@@ -321,7 +337,7 @@ class Requester
     }
 
     /**
-     * Getter for the url will append protocol if one does not exist
+     * Getter for the url will append protocol if one does not exist.
      *
      * @return string
      */
@@ -341,7 +357,7 @@ class Requester
     }
 
     /**
-     * Getter for options
+     * Getter for options.
      *
      * @return array
      */
@@ -359,10 +375,11 @@ class Requester
     }
 
     /**
-     * Send the request using guzzle
+     * Send the request using guzzle.
      *
-     * @param  string                                $function function to call on guzzle
-     * @param  array                                 $options  options to pass
+     * @param string $function function to call on guzzle
+     * @param array  $options  options to pass
+     *
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     protected function send($function, array $options = [])
@@ -381,9 +398,10 @@ class Requester
     }
 
     /**
-     * Add the retry subscriber to the guzzle client
+     * Add the retry subscriber to the guzzle client.
      *
-     * @param  \GuzzleHttp\Client $guzzle
+     * @param \GuzzleHttp\Client $guzzle
+     *
      * @return \GuzzleHttp\Client
      */
     protected function addRetrySubscriber(GuzzleClient $guzzle)
@@ -391,7 +409,7 @@ class Requester
         // Build retry subscriber
         $retry = new RetrySubscriber([
             'filter' => RetrySubscriber::createStatusFilter($this->retryOn),
-            'delay' => function ($number, $event) {
+            'delay'  => function ($number, $event) {
                 return $this->retryDelay;
             },
             'max' => $this->retry,
@@ -404,7 +422,7 @@ class Requester
     }
 
     /**
-     * Get the protocol
+     * Get the protocol.
      *
      * @return string
      */
@@ -415,7 +433,7 @@ class Requester
 
     /**
      * Resets all variables to default values
-     * required if using the same instance for multiple requests
+     * required if using the same instance for multiple requests.
      *
      * @return void
      */
