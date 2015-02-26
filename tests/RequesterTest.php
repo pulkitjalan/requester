@@ -18,7 +18,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         Mockery::close();
     }
 
-    public function testUrlGetter()
+    public function test_url_getter()
     {
         $this->requester->url('example.com');
 
@@ -33,19 +33,19 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('git://example.com', $this->requester->getUrl());
     }
 
-    public function testInvalidUrlException()
+    public function test_invalid_url_exception()
     {
         $this->setExpectedException('PulkitJalan\Requester\Exceptions\InvalidUrlException');
 
         $this->requester->getUrl();
     }
 
-    public function testGuzzleGetter()
+    public function test_guzzle_getter()
     {
         $this->assertInstanceOf('GuzzleHttp\Client', $this->requester->getGuzzleClient());
     }
 
-    public function testDisablingSslVerification()
+    public function test_disabling_ssl_verification()
     {
         $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
             'verify' => false,
@@ -54,7 +54,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->url('example.com')->verify(false)->get();
     }
 
-    public function testSettingAsync()
+    public function test_setting_async()
     {
         $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
             'verify' => true,
@@ -64,7 +64,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->url('example.com')->async(true)->get();
     }
 
-    public function testSettingAndAddingHeaders()
+    public function test_setting_and_adding_headers()
     {
         $this->requester->headers(['Authorization' => 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==']);
 
@@ -84,7 +84,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         ], $this->readAttribute($this->requester, 'options'));
     }
 
-    public function testAddingFileToRequest()
+    public function test_adding_file_to_request()
     {
         $this->requester->addFile(__FILE__);
 
@@ -97,7 +97,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('resource', $this->readAttribute($this->requester, 'options')['body']['image']);
     }
 
-    public function testChangingRetryOptions()
+    public function test_changing_retry_options()
     {
         $this->requester->retry(10);
 
@@ -116,7 +116,22 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(false, $this->readAttribute($this->requester, 'retry'));
     }
 
-    public function testSendingGetRequest()
+    public function test_adding_logger()
+    {
+        $monolog = new \Monolog\Logger('name');
+        $handler = Mockery::mock('Monolog\Handler\NullHandler')->makePartial();
+        $monolog->pushHandler($handler);
+
+        $requester = new \PulkitJalan\Requester\Requester(new \GuzzleHttp\Client());
+
+        $requester->addLogger($monolog);
+
+        $handler->shouldReceive('handle')->once();
+
+        $requester->url('example.com')->get();
+    }
+
+    public function test_sending_get_request()
     {
         $this->guzzle->shouldReceive('get')->once()->with('https://example.com', [
             'verify' => true,
@@ -125,7 +140,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->url('example.com')->get();
     }
 
-    public function testSendingHeadRequest()
+    public function test_sending_head_request()
     {
         $this->guzzle->shouldReceive('head')->once()->with('https://example.com', [
             'verify' => true,
@@ -134,7 +149,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->url('example.com')->head();
     }
 
-    public function testSendingOptionsRequest()
+    public function test_sending_options_request()
     {
         $this->guzzle->shouldReceive('options')->once()->with('https://example.com', [
             'verify' => true,
@@ -143,7 +158,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         $this->requester->url('example.com')->options();
     }
 
-    public function testSendingPostRequest()
+    public function test_sending_post_request()
     {
         $this->guzzle->shouldReceive('post')->once()->with('https://example.com', [
             'verify'  => true,
@@ -159,7 +174,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function testSendingPutRequest()
+    public function test_sending_put_request()
     {
         $this->guzzle->shouldReceive('put')->once()->with('https://example.com', [
             'verify'  => true,
@@ -175,7 +190,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function testSendingPatchRequest()
+    public function test_sending_patch_request()
     {
         $this->guzzle->shouldReceive('patch')->once()->with('https://example.com', [
             'verify'  => true,
@@ -191,7 +206,7 @@ class RequesterTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function testSendingDeleteRequest()
+    public function test_sending_delete_request()
     {
         $this->guzzle->shouldReceive('delete')->once()->with('https://example.com', [
             'verify'  => true,
