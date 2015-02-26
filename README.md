@@ -18,15 +18,15 @@ Install via composer - edit your `composer.json` to require the package.
 
 ```js
 "require": {
-    "pulkitjalan/requester": "1.*"
+    "pulkitjalan/requester": "2.*"
 }
 ```
 
 Then run `composer update` in your terminal to pull it in.
 
-### Laravel
+### Laravel 5
 
-There is a Laravel service provider and facade available.
+There is a Laravel 5 service provider and facade available.
 
 Add the following to the `providers` array in your `config/app.php`
 
@@ -40,7 +40,11 @@ Next add the following to the `aliases` array in your `config/app.php`
 'Requester' => 'PulkitJalan\Requester\Facades\Requester'
 ```
 
-Next run `php artisan config:publish pulkitjalan/requester` to publish the config file.
+Next run `php artisan vendor:publish --provider="pulkitjalan\requester\RequesterServiceProvider" --tag="config"` to publish the config file.
+
+#### Looking for a Laravel 4 compatible version?
+
+Checkout the [1.0 branch](https://github.com/pulkitjalan/requester/tree/1.0)
 
 ## Usage
 

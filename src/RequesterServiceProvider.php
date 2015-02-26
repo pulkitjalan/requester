@@ -25,14 +25,18 @@ class RequesterServiceProvider extends ServiceProvider
             return $app['requester'];
         };
 
-        if ($this->app['config']->get('requester::log.enabled')) {
+        $this->publishes([
+            __DIR__.'/config/config.php' => config_path('requester.php'),
+        ], 'config');
+
+        if (config('requester.log.enabled')) {
             $logger = $this->app['log']->getMonolog();
 
-            if (!empty($this->app['config']->get('requester::log.file'))) {
-                $logger->pushHandler(new StreamHandler($this->app['config']->get('requester::log.file'), Logger::INFO));
+            if (!empty(config('requester.log.file'))) {
+                $logger->pushHandler(new StreamHandler(config('requester.log.file'), Logger::INFO));
             }
 
-            $this->app['requester']->addLogger($logger, $this->app['config']->get('requester::log.format'));
+            $this->app['requester']->addLogger($logger, config('requester.log.format'));
         }
     }
 
@@ -43,10 +47,10 @@ class RequesterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['config']->package('pulkitjalan/requester', realpath(__DIR__.'/config'), 'requester');
+        $this->mergeConfigFrom(__DIR__.'/config/config.php', 'requester');
 
         $this->app['requester'] = $this->app->share(function ($app) {
-            return new Requester(new GuzzleClient(), $config = $app['config']->get('requester::config'));
+            return new Requester(new GuzzleClient(), config('requester'));
         });
     }
 
