@@ -25,6 +25,5 @@
         "psr-4": {
             "PulkitJalan\\Requester\\": "src"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
