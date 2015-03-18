@@ -78,7 +78,7 @@ $requester->url('example.com')->retry(false)->get();
 Disabling ssl check
 ```php
 // ssl check disabled
-$requester->url('example.com')->veify(false)->get();
+$requester->url('example.com')->verify(false)->get();
 ```
 
 Use http instead of https
